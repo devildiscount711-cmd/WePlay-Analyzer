@@ -1,0 +1,14 @@
+{
+    "name": "WePlay Analyzer",
+    "short_name": "WePlay",
+    "description": "محلل إحصائي لنتائج الروليت",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#0b1020",
+    "theme_color": "#0b1020",
+    "lang": "ar",
+    "dir": "rtl"
+    
+}
