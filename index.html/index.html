@@ -1,0 +1,62 @@
+الكتابة
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WePlay Analyzer</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#fff;font-family:Arial,sans-serif;padding:18px}
+header{text-align:center;padding:18px;color:#55e6a5}
+h1{font-size:27px;margin:8px}
+.card{background:#151d30;border:1px solid #34415a;border-radius:16px;padding:16px;margin:14px 0}
+button{background:#18b981;color:#07150f;border:0;border-radius:10px;padding:12px;font-size:16px;font-weight:bold;cursor:pointer}
+input{width:100%;padding:13px;border-radius:9px;background:#0b1020;border:1px solid #53617b;color:white;font-size:18px;margin:10px 0}
+#history{line-height:2;overflow-wrap:anywhere}
+.result{font-size:20px;color:#55e6a5}
+small{color:#aab6ca}
+</style>
+</head>
+<body>
+<header>
+<h1>WePlay Analyzer</h1>
+<p>محلل نتائج الروليت</p>
+</header>
+<div class="card">
+<h3>إضافة نتيجة جديدة</h3>
+<input id="number" type="number" min="0" max="36" placeholder="أدخل الرقم من 0 إلى 36">
+<button onclick="addResult()">إضافة النتيجة</button>
+</div>
+<div class="card">
+<h3>آخر النتائج</h3>
+<div id="history">لم تتم إضافة نتائج بعد.</div>
+</div>
+<div class="card">
+<h3>تحليل السجل</h3>
+<p id="count">عدد النتائج: 0</p>
+<p id="common" class="result">بانتظار النتائج</p>
+<small>التحليل إحصائي للنتائج السابقة، ولا يضمن توقع النتيجة التالية.</small>
+</div>
+<script>
+let results=[];
+function addResult(){
+const field=document.getElementById('number');
+const n=field.value;
+if(n===''||Number(n)<0||Number(n)>36||!Number.isInteger(Number(n))){
+alert('أدخل رقمًا صحيحًا من 0 إلى 36');
+return;
+}
+results.unshift(Number(n));
+if(results.length>500)results.pop();
+field.value='';
+document.getElementById('history').textContent=results.join(' • ');
+document.getElementById('count').textContent='عدد النتائج: '+results.length;
+const freq={};
+results.forEach(x=>freq[x]=(freq[x]||0)+1);
+const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+document.getElementById('common').textContent='الأكثر تكرارًا في السجل: '+sorted.filter(x=>x[1]===sorted[0][1]).map(x=>x[0]).join('، ')+' ('+sorted[0][1]+' مرات)';
+}
+</script>
+</body>
+</html>
